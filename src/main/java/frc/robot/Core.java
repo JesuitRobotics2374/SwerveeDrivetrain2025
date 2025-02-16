@@ -31,6 +31,7 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
+import frc.robot.subsystems.ClimbingSubsystem;
 import frc.robot.subsystems.drivetrain.CommandSwerveDrivetrain;
 import frc.robot.subsystems.drivetrain.TunerConstants;
 import frc.robot.utils.LimelightObject;
@@ -64,6 +65,8 @@ public class Core {
     private final CommandXboxController operatorController = new CommandXboxController(1);
 
     public final CommandSwerveDrivetrain drivetrain = TunerConstants.createDrivetrain();
+
+    public final ClimbingSubsystem climbingSubsystem = new ClimbingSubsystem();
 
     private final SendableChooser<Command> autoChooser;
 
@@ -145,6 +148,20 @@ public class Core {
         //         .onTrue(drivetrain.runOnce(() -> drivetrain.alignToVision(Constants.LIMELIGHTS_ON_BOARD[0], true)));
 
        // driveController.b().onTrue(new Outtake(outtakeSubsystem));
+
+        // driveController.rightBumper().onTrue(climbingSubsystem.runOnce(() -> climbingSubsystem.climbRaise()));
+        // driveController.leftBumper().onTrue(climbingSubsystem.runOnce(() -> climbingSubsystem.climbLower()));
+
+        driveController.a().onTrue(climbingSubsystem.runOnce(() -> climbingSubsystem.zeroSystem()));
+        driveController.b().onTrue(climbingSubsystem.runOnce(() -> climbingSubsystem.stop()));
+
+        driveController.x().onTrue(climbingSubsystem.runOnce(() -> climbingSubsystem.speed(0.3)));
+        driveController.y().onTrue(climbingSubsystem.runOnce(() -> climbingSubsystem.speed(-0.3)));
+
+        
+
+        // driveController.povUp().onTrue(climbingSubsystem.runOnce(() -> climbingSubsystem.raise()));
+        // driveController.povDown().onTrue(climbingSubsystem.runOnce(() -> climbingSubsystem.lower()));
 
         // Run SysId routines when holding back/start and X/Y.
         // Note that each routine should be run exactly once in a single log.
