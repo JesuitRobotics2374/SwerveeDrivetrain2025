@@ -76,7 +76,7 @@ public class ClimbingSubsystem extends SubsystemBase {
         climbMotor.getConfigurator().apply(slot0Configs);
         climbMotor.getConfigurator().apply(motionMagicConfigs);
 
-        //climbMotor.setPosition(climbCoder.getPosition().getValueAsDouble() * 100);
+        climbMotor.setPosition(climbCoder.getPosition().getValueAsDouble() * 100);
 
         climbMotor.setNeutralMode(NeutralModeValue.Brake);
     }
@@ -115,7 +115,7 @@ public class ClimbingSubsystem extends SubsystemBase {
     }
 
     public void zeroSystem() {
-        //shaftEncoder.setPosition(0.0);
+        climbCoder.setPosition(0.0);
         climbMotor.setPosition(0.0);
 
         MotionMagicVoltage m_request = new MotionMagicVoltage(0);

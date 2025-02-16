@@ -155,8 +155,8 @@ public class Core {
         driveController.a().onTrue(climbingSubsystem.runOnce(() -> climbingSubsystem.zeroSystem()));
         driveController.b().onTrue(climbingSubsystem.runOnce(() -> climbingSubsystem.stop()));
 
-        driveController.x().onTrue(climbingSubsystem.runOnce(() -> climbingSubsystem.speed(0.3)));
-        driveController.y().onTrue(climbingSubsystem.runOnce(() -> climbingSubsystem.speed(-0.3)));
+        driveController.x().onTrue(climbingSubsystem.runOnce(() -> climbingSubsystem.speed(1)));
+        driveController.y().onTrue(climbingSubsystem.runOnce(() -> climbingSubsystem.speed(-1)));
 
         
 
