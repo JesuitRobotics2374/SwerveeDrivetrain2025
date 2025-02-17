@@ -130,7 +130,8 @@ public class ClimbingSubsystem extends SubsystemBase {
         clock++;
 
         if (clock == 20) {
-            System.out.println(climbMotor.getPosition().getValueAsDouble());
+            System.out.println("Motor: " + climbMotor.getPosition().getValueAsDouble());
+            System.out.println("Encoder: " + climbMotor.getPosition().getValueAsDouble());
             clock = 0;
         }
     }
