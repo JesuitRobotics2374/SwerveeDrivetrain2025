@@ -81,29 +81,29 @@ public class ClimbingSubsystem extends SubsystemBase {
         climbMotor.setNeutralMode(NeutralModeValue.Brake);
     }
 
-    public void climbRaise() {
-        MotionMagicVoltage m_request = new MotionMagicVoltage(climbMotor.getPosition().getValueAsDouble() + 3);
+    // public void climbRaise() {
+    //     MotionMagicVoltage m_request = new MotionMagicVoltage(climbMotor.getPosition().getValueAsDouble() + 3);
 
-        climbMotor.setControl(m_request);
-    }
+    //     climbMotor.setControl(m_request);
+    // }
 
-    public void climbLower() {
-        MotionMagicVoltage m_request = new MotionMagicVoltage(climbMotor.getPosition().getValueAsDouble() - 3);
+    // public void climbLower() {
+    //     MotionMagicVoltage m_request = new MotionMagicVoltage(climbMotor.getPosition().getValueAsDouble() - 3);
 
-        climbMotor.setControl(m_request);
-    }
+    //     climbMotor.setControl(m_request);
+    // }
 
-    public void raise() {
-        MotionMagicVoltage m_request = new MotionMagicVoltage(-10);
+    // public void raise() {
+    //     MotionMagicVoltage m_request = new MotionMagicVoltage(-10);
 
-        climbMotor.setControl(m_request);
-    }
+    //     climbMotor.setControl(m_request);
+    // }
 
-    public void lower() {
-        MotionMagicVoltage m_request = new MotionMagicVoltage(0);
+    // public void lower() {
+    //     MotionMagicVoltage m_request = new MotionMagicVoltage(0);
 
-        climbMotor.setControl(m_request);
-    }
+    //     climbMotor.setControl(m_request);
+    // }
 
     public void speed(double s) {
         climbMotor.set(s);
@@ -131,7 +131,7 @@ public class ClimbingSubsystem extends SubsystemBase {
 
         if (clock == 20) {
             System.out.println("Motor: " + climbMotor.getPosition().getValueAsDouble());
-            System.out.println("Encoder: " + climbMotor.getPosition().getValueAsDouble());
+            System.out.println("Encoder: " + climbCoder.getPosition().getValueAsDouble());
             clock = 0;
         }
     }
