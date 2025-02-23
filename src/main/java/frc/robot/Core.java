@@ -152,11 +152,15 @@ public class Core {
         // driveController.rightBumper().onTrue(climbingSubsystem.runOnce(() -> climbingSubsystem.climbRaise()));
         // driveController.leftBumper().onTrue(climbingSubsystem.runOnce(() -> climbingSubsystem.climbLower()));
 
-        driveController.a().onTrue(climbingSubsystem.runOnce(() -> climbingSubsystem.zeroSystem()));
+        //driveController.a().onTrue(climbingSubsystem.runOnce(() -> climbingSubsystem.zeroSystem()));
+        driveController.a().onTrue(climbingSubsystem.runOnce(() -> climbingSubsystem.servoLogic()));
+        //driveController.leftTrigger().onTrue(climbingSubsystem.runOnce(() -> climbingSubsystem.servoPosition(0.0)));
+
         driveController.b().onTrue(climbingSubsystem.runOnce(() -> climbingSubsystem.stop()));
 
-        driveController.x().onTrue(climbingSubsystem.runOnce(() -> climbingSubsystem.speed(0.1)));
-        driveController.y().onTrue(climbingSubsystem.runOnce(() -> climbingSubsystem.speed(-0.1)));
+        driveController.x().onTrue(climbingSubsystem.runOnce(() -> climbingSubsystem.speed(0.5)));
+        driveController.y().onTrue(climbingSubsystem.runOnce(() -> climbingSubsystem.speed(-0.5)));
+
 
         
 
