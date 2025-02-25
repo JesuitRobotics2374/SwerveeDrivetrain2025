@@ -133,6 +133,7 @@ public class ClimbingSubsystem extends SubsystemBase {
     public void servoPosition(double p) {
         servo.setPosition(p);
     }
+    
     public void servoLogic(){
         if(canClimb == false){
             servoPosition(10);
