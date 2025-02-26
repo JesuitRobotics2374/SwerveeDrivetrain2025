@@ -16,17 +16,37 @@ public class Robot extends TimedRobot {
 
   private final Core m_robotContainer;
 
+  //For Both Robots:
   private Orchestra orchestra = new Orchestra();
-
-  private boolean hasRun = false;
-
-  private String teleopSong = "jeopardy.chrp";
-  private String outroSong = "wii.chrp";
-
-  TalonFX instrument1 = new TalonFX(27, "FastFD");
-
   AudioConfigs audio = new AudioConfigs().withAllowMusicDurDisable(true);
+  private String outroSong = "wii.chrp"; //Change to whatever song you want to play on disable
 
+  /*
+   * Also a note for Aries:
+   * Your .chrp files HAVE TO BE 
+   * IN A NEW FILE UNDER src/main
+   * CALLED deploy
+   * 
+   * Without this, it cannot move the files properly to the roboRIO
+   * and the music WILL NOT WORK
+   */
+
+  /* For Main Robot:
+  TalonFX instrument1 = new TalonFX(1, "FastFD");
+  TalonFX instrument2 = new TalonFX(2, "FastFD");
+  TalonFX instrument3 = new TalonFX(3, "FastFD");
+  TalonFX instrument4 = new TalonFX(4, "FastFD");
+  TalonFX instrument11 = new TalonFX(11, "FastFD");
+  TalonFX instrument12 = new TalonFX(12, "FastFD");
+  TalonFX instrument13 = new TalonFX(13, "FastFD");
+  TalonFX instrument14 = new TalonFX(14, "FastFD");
+  TalonFX instrument31 = new TalonFX(31, "FastFD");
+  TalonFX instrument32 = new TalonFX(32, "FastFD");
+   */
+
+   //For Swervee:
+  TalonFX instrument27 = new TalonFX(27, "FastFD");
+  
   public Robot() {
     m_robotContainer = new Core();
   }
@@ -74,44 +94,57 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit() {
+    //Both:
     orchestra.clearInstruments();
 
-    // if (orchestra.isPlaying()) {
-    //   orchestra.stop();
-    // }
-    // AudioConfigs audio = new AudioConfigs().withAllowMusicDurDisable(false);
-
-    // instrument1.getConfigurator().apply(audio);
-
-    // if (m_autonomousCommand != null) {
-    //   m_autonomousCommand.cancel();
-    // }
-
-    // orchestra.loadMusic(teleopSong);
   }
 
   @Override
   public void teleopPeriodic() {
-    // if (!hasRun) {
-    //   orchestra.play();
-    //   hasRun = true;
-    //   System.out.println("Playing Teleop Music");
-    // }
   }
 
   @Override
   public void teleopExit() {
-    // hasRun = false;
-    // System.out.println("Playing Outro Music");
+    //THIS NEEDS TO BE ADDED TO MAIN BOT:
+    /*
+    this.orchestra.addInstrument(instrument1);
+    this.instrument1.getConfigurator().apply(this.audio);
 
-    orchestra.addInstrument(new TalonFX(27, "FastFD"));
+    this.orchestra.addInstrument(instrument2);
+    this.instrument2.getConfigurator().apply(this.audio);
 
-    AudioConfigs audio = new AudioConfigs().withAllowMusicDurDisable(true);
+    this.orchestra.addInstrument(instrument3);
+    this.instrument3.getConfigurator().apply(this.audio);
 
-    instrument1.getConfigurator().apply(audio);
+    this.orchestra.addInstrument(instrument4);
+    this.instrument4.getConfigurator().apply(this.audio);
 
-    orchestra.loadMusic(outroSong);
-    orchestra.play();
+    this.orchestra.addInstrument(instrument11);
+    this.instrument11.getConfigurator().apply(this.audio);
+
+    this.orchestra.addInstrument(instrument12);
+    this.instrument12.getConfigurator().apply(this.audio);
+
+    this.orchestra.addInstrument(instrument13);
+    this.instrument13.getConfigurator().apply(this.audio);
+
+    this.orchestra.addInstrument(instrument14);
+    this.instrument14.getConfigurator().apply(this.audio);
+
+    this.orchestra.addInstrument(instrument31);
+    this.instrument31.getConfigurator().apply(this.audio);
+
+    this.orchestra.addInstrument(instrument32);
+    this.instrument32.getConfigurator().apply(this.audio);
+    */
+
+    //Swervee only:
+    this.orchestra.addInstrument(instrument27);
+    this.instrument27.getConfigurator().apply(this.audio); 
+
+    //Both:
+    this.orchestra.loadMusic(outroSong);
+    this.orchestra.play();
   }
 
   @Override
