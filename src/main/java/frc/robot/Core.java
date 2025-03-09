@@ -32,6 +32,8 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
 import frc.robot.subsystems.ClimbingSubsystem;
+import frc.robot.subsystems.LightsSubsystem;
+import frc.robot.subsystems.LightsSubsystem.LEDStripMode;
 import frc.robot.subsystems.drivetrain.CommandSwerveDrivetrain;
 import frc.robot.subsystems.drivetrain.TunerConstants;
 import frc.robot.utils.LimelightObject;
@@ -67,6 +69,8 @@ public class Core {
     public final CommandSwerveDrivetrain drivetrain = TunerConstants.createDrivetrain();
 
     public final ClimbingSubsystem climbingSubsystem = new ClimbingSubsystem();
+    
+    public final LightsSubsystem lightsSubsystem = new LightsSubsystem();
 
     private final SendableChooser<Command> autoChooser;
 
@@ -153,13 +157,16 @@ public class Core {
         // driveController.leftBumper().onTrue(climbingSubsystem.runOnce(() -> climbingSubsystem.climbLower()));
 
         //driveController.a().onTrue(climbingSubsystem.runOnce(() -> climbingSubsystem.zeroSystem()));
-        driveController.a().onTrue(climbingSubsystem.runOnce(() -> climbingSubsystem.servoLogic()));
+        driveController.a().onTrue(lightsSubsystem.runOnce(() -> lightsSubsystem.setAllLEDToIdle()));
         //driveController.leftTrigger().onTrue(climbingSubsystem.runOnce(() -> climbingSubsystem.servoPosition(0.0)));
 
-        driveController.b().onTrue(climbingSubsystem.runOnce(() -> climbingSubsystem.stop()));
+        driveController.b().onTrue(lightsSubsystem.runOnce(() -> lightsSubsystem.setAllLEDToOff()));
 
-        driveController.x().onTrue(climbingSubsystem.runOnce(() -> climbingSubsystem.speed(0.5)));
-        driveController.y().onTrue(climbingSubsystem.runOnce(() -> climbingSubsystem.speed(-0.5)));
+        driveController.x().onTrue(lightsSubsystem.runOnce(() -> lightsSubsystem.setAllLEDToColor(0, 255, 0)));
+
+        driveController.y().onTrue(lightsSubsystem.runOnce(() -> lightsSubsystem.setLEDMode(LEDStripMode.JesuitWave)));
+
+        // driveController.y().onTrue(lightsSubsystem.runOnce(() -> climbingSubsystem.speed(-0.5)));
 
 
         

@@ -10,11 +10,15 @@ import com.ctre.phoenix6.hardware.TalonFX;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.subsystems.LightsSubsystem;
 
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
 
   private final Core m_robotContainer;
+
+  public final LightsSubsystem lightsSubsystem = new LightsSubsystem();
+
 
   //For Both Robots:
   private Orchestra orchestra = new Orchestra();
@@ -58,6 +62,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void disabledInit() {
+    lightsSubsystem.setAllLEDToIdle();
   }
 
   @Override
