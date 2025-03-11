@@ -33,6 +33,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
 import frc.robot.subsystems.ClimbingSubsystem;
 import frc.robot.subsystems.LightsSubsystem;
+import frc.robot.subsystems.LightsSubsystem.LEDPanelMode;
 import frc.robot.subsystems.LightsSubsystem.LEDStripMode;
 import frc.robot.subsystems.drivetrain.CommandSwerveDrivetrain;
 import frc.robot.subsystems.drivetrain.TunerConstants;
@@ -157,14 +158,16 @@ public class Core {
         // driveController.leftBumper().onTrue(climbingSubsystem.runOnce(() -> climbingSubsystem.climbLower()));
 
         //driveController.a().onTrue(climbingSubsystem.runOnce(() -> climbingSubsystem.zeroSystem()));
-        driveController.a().onTrue(lightsSubsystem.runOnce(() -> lightsSubsystem.setAllLEDToIdle()));
+        driveController.a().onTrue(lightsSubsystem.runOnce(() -> lightsSubsystem.setAllLEDToOff()));
         //driveController.leftTrigger().onTrue(climbingSubsystem.runOnce(() -> climbingSubsystem.servoPosition(0.0)));
 
-        driveController.b().onTrue(lightsSubsystem.runOnce(() -> lightsSubsystem.setAllLEDToOff()));
+        driveController.b().onTrue(lightsSubsystem.runOnce(() -> lightsSubsystem.setLEDMode(LEDPanelMode.Test)));
 
         driveController.x().onTrue(lightsSubsystem.runOnce(() -> lightsSubsystem.setAllLEDToColor(0, 255, 0)));
 
-        driveController.y().onTrue(lightsSubsystem.runOnce(() -> lightsSubsystem.setLEDMode(LEDStripMode.JesuitWave)));
+        driveController.y().onTrue(lightsSubsystem.runOnce(() -> lightsSubsystem.setLEDMode(LEDStripMode.RainbowWave)));
+
+        driveController.back().onTrue(lightsSubsystem.runOnce(() -> lightsSubsystem.setLEDMode(LEDStripMode.JesuitWave)));
 
         // driveController.y().onTrue(lightsSubsystem.runOnce(() -> climbingSubsystem.speed(-0.5)));
 
