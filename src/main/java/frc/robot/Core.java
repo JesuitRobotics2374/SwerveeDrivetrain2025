@@ -161,9 +161,9 @@ public class Core {
         driveController.a().onTrue(lightsSubsystem.runOnce(() -> lightsSubsystem.setAllLEDToOff()));
         //driveController.leftTrigger().onTrue(climbingSubsystem.runOnce(() -> climbingSubsystem.servoPosition(0.0)));
 
-        driveController.b().onTrue(lightsSubsystem.runOnce(() -> lightsSubsystem.setLEDMode(LEDPanelMode.Test)));
+        // driveController.b().onTrue(lightsSubsystem.runOnce(() -> lightsSubsystem.tickSkipDecrease()));
 
-        driveController.x().onTrue(lightsSubsystem.runOnce(() -> lightsSubsystem.setAllLEDToColor(0, 255, 0)));
+        // driveController.x().onTrue(lightsSubsystem.runOnce(() -> lightsSubsystem.tickSkipIncrease()));
 
         driveController.y().onTrue(lightsSubsystem.runOnce(() -> lightsSubsystem.setLEDMode(LEDStripMode.RainbowWave)));
 
