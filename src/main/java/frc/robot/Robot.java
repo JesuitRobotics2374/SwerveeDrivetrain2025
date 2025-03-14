@@ -7,9 +7,14 @@ package frc.robot;
 import com.ctre.phoenix6.Orchestra;
 import com.ctre.phoenix6.configs.AudioConfigs;
 import com.ctre.phoenix6.hardware.TalonFX;
+
+import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.subsystems.drivetrain.CommandSwerveDrivetrain;
+import frc.robot.subsystems.drivetrain.TunerConstants;
 
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
@@ -20,6 +25,7 @@ public class Robot extends TimedRobot {
   private Orchestra orchestra = new Orchestra();
   AudioConfigs audio = new AudioConfigs().withAllowMusicDurDisable(true);
   private String outroSong = "wii.chrp"; //Change to whatever song you want to play on disable
+  
 
   /*
    * Also a note for Aries:
@@ -46,14 +52,20 @@ public class Robot extends TimedRobot {
 
    //For Swervee:
   TalonFX instrument27 = new TalonFX(27, "FastFD");
+  public final CommandSwerveDrivetrain drivetrain = TunerConstants.createDrivetrain();
+  private VisionSubsystem visionSubsystem = new VisionSubsystem(null);
   
   public Robot() {
     m_robotContainer = new Core();
   }
 
+  private int clock = 0;
+
   @Override
   public void robotPeriodic() {
-    CommandScheduler.getInstance().run();
+    System.out.println(visionSubsystem.getEstimatedGlobalPose());
+    visionSubsystem.setLabel(visionSubsystem.getEstimatedGlobalPose(), "rp");
+    //System.out.println(visionSubsystem.getDistanceToAprilTag());
   }
 
   @Override
@@ -163,4 +175,5 @@ public class Robot extends TimedRobot {
   @Override
   public void simulationPeriodic() {
   }
+
 }

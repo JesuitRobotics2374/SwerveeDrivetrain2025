@@ -425,4 +425,8 @@ public class CommandSwerveDrivetrain extends TunerSwerveDrivetrain implements Su
         return estimator.getEstimatedPosition().getRotation().getDegrees();
     }
 
+    public Pose2d getRobotPose() {
+        return estimator.getEstimatedPosition();
+    }
+
 }
