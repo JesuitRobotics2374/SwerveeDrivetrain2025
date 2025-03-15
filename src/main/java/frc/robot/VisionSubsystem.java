@@ -14,6 +14,7 @@ import org.photonvision.targeting.PhotonTrackedTarget;
 
 import edu.wpi.first.apriltag.AprilTagFieldLayout;
 import edu.wpi.first.apriltag.AprilTagFields;
+import edu.wpi.first.apriltag.AprilTagPoseEstimator;
 import edu.wpi.first.math.Matrix;
 import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.estimator.PoseEstimator;
@@ -39,6 +40,8 @@ public class VisionSubsystem {
 
     private PhotonCamera camera;
     private CommandSwerveDrivetrain drivetrain;
+    //AprilTagFields aprilTagFields = AprilTagFields.k2025Reefscape;
+    //AprilTagFieldLayout tagLayout = aprilTagFields.loadAprilTagLayoutField();
     Field2d field;
 
     // private Transform3d robotToCam;
@@ -72,6 +75,7 @@ public class VisionSubsystem {
         field.getObject(label).setPose(pose2d);
     }
 
+    //MY(JULI'S) PROTOTYPE CODE
     // public class AprilTagDistance {
     // public double getDistanceToAprilTag() {
     // var result = camera.getLatestResult();
@@ -90,8 +94,15 @@ public class VisionSubsystem {
     // }
     // }
 
+    //coordinates of apriltag relative to the camera (Juli's)(don't touch if you can't finish/fix it)
+    // public Pose2d AprilTagPoseEstimator(){
+    //     AprilTagPoseEstimator.Config config = new AprilTagPoseEstimator.Config();
+    //     AprilTagPoseEstimator estimator = new AprilTagPoseEstimator(config);
+    // }
+    //can u jut use the getestimated global pose and do sum math to convert it backwards (such as flip signs or 360-angle)
+
     
-    // KEVIN'S CODE (with a few minor tweaks)
+    //KEVIN'S CODE (with a few minor tweaks)
     //NOTE TO SELF(JULI) DON'T FORGET TO MAKE IT WORK WITH ELASTIC
     public Pose2d getEstimatedGlobalPose() {
         List<PhotonPipelineResult> results = camera.getAllUnreadResults();
@@ -110,15 +121,15 @@ public class VisionSubsystem {
             //Pose2d robotPose = drivetrain.getRobotPose();
             // Pose2d targetPose = robotPose.transformBy(transform2d);
 
-            Pose2d targetPose = new Pose2d(translation2d, rotation2d-180); //TEST THIS
+            Pose2d targetPose = new Pose2d(translation2d, rotation2d.minus(Rotation2d.fromDegrees(180))); //TEST THIS
             // Pose2d targetPose = new Pose2d();
 
-            Pose2d latestTargetPose = targetPose;
+            //Pose2d latestTargetPose = targetPose;
 
             return targetPose;
         } else {
             return new Pose2d(0,0,new Rotation2d(0,0));
-            //try return null again
+            //return null;
         }
 
         //ASK ARIES FOR:

@@ -63,8 +63,13 @@ public class Robot extends TimedRobot {
 
   @Override
   public void robotPeriodic() {
+    clock++;
+
+    if (clock == 10) {
     System.out.println(visionSubsystem.getEstimatedGlobalPose());
-    
+    clock = 0;
+    }
+
     //visionSubsystem.setLabel(visionSubsystem.getEstimatedGlobalPose(), "rp");
     //System.out.println(visionSubsystem.getDistanceToAprilTag());
   }
