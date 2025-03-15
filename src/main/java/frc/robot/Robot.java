@@ -64,7 +64,8 @@ public class Robot extends TimedRobot {
   @Override
   public void robotPeriodic() {
     System.out.println(visionSubsystem.getEstimatedGlobalPose());
-    visionSubsystem.setLabel(visionSubsystem.getEstimatedGlobalPose(), "rp");
+    
+    //visionSubsystem.setLabel(visionSubsystem.getEstimatedGlobalPose(), "rp");
     //System.out.println(visionSubsystem.getDistanceToAprilTag());
   }
 
