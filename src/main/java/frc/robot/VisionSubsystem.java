@@ -32,6 +32,9 @@ import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj2.command.button.RobotModeTriggers;
 import frc.robot.subsystems.drivetrain.CommandSwerveDrivetrain;
 
+//for alignment
+import edu.wpi.first.math.controller.PIDController;
+
 public class VisionSubsystem {
 
     private PhotonCamera camera;
@@ -117,6 +120,12 @@ public class VisionSubsystem {
             return new Pose2d(0,0,new Rotation2d(0,0));
             //try return null again
         }
+
+        //ASK ARIES FOR:
+        // possible implementation
+        // alignment
+        // robotPose IN FIELD
+        //NOTE TO SELF!!!!: use seafinder2 exact alignment code as reference if I(Juli) wanna do it myself
 
         // Optional<EstimatedRobotPose> visionEst = Optional.empty();
         // for (var change : camera.getAllUnreadResults()) {
