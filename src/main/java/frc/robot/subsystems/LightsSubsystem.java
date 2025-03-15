@@ -17,6 +17,8 @@ public class LightsSubsystem extends SubsystemBase {
 
     private static final int LED_STRIP_OFFSET = 8;
     private static int LED_STRIP_COUNT = 60;
+
+    private static int LED_PANEL_OFFSET = 68;
     private static int LED_PANEL_LENGTH = 32;
 
     private static int TICK_SKIP = 3;
@@ -50,6 +52,10 @@ public class LightsSubsystem extends SubsystemBase {
     private static Color[] cachedJesuitWave = new Color[] { new Color(0,255,0), new Color(8,249,0), new Color(17,243,0), new Color(26,238,0), new Color(35,232,0), new Color(43,227,0), new Color(52,221,0), new Color(61,215,0), new Color(70,210,0), new Color(79,204,0), new Color(87,199,0), new Color(96,193,0), new Color(105,187,0), new Color(114,182,0), new Color(123,176,0), new Color(131,171,0), new Color(140,165,0), new Color(149,160,0), new Color(158,154,0), new Color(167,148,0), new Color(175,143,0), new Color(184,137,0), new Color(193,132,0), new Color(202,126,0), new Color(211,120,0), new Color(219,115,0), new Color(228,109,0), new Color(237,104,0), new Color(246,98,0), new Color(255,93,0), new Color(255,93,0), new Color(246,98,0), new Color(237,104,0), new Color(228,109,0), new Color(219,115,0), new Color(211,120,0), new Color(202,126,0), new Color(193,132,0), new Color(184,137,0), new Color(175,143,0), new Color(167,148,0), new Color(158,154,0), new Color(149,160,0), new Color(140,165,0), new Color(131,171,0), new Color(123,176,0), new Color(114,182,0), new Color(105,187,0), new Color(96,193,0), new Color(87,199,0), new Color(79,204,0), new Color(70,210,0), new Color(61,215,0), new Color(52,221,0), new Color(43,227,0), new Color(35,232,0), new Color(26,238,0), new Color(17,243,0), new Color(8,249,0), new Color(0,255,0) };
     // private static Color[] cachedJesuitWave = new Color[] { new Color(255,93,0), new Color(236,104,0), new Color(218,116,0), new Color(200,127,0), new Color(182,139,0), new Color(163,150,0), new Color(145,162,0), new Color(127,174,0), new Color(109,185,0), new Color(91,197,0), new Color(72,208,0), new Color(54,220,0), new Color(36,231,0), new Color(18,243,0), new Color(0,255,0), new Color(0,255,0), new Color(18,243,0), new Color(36,231,0), new Color(54,220,0), new Color(72,208,0), new Color(91,197,0), new Color(109,185,0), new Color(127,174,0), new Color(145,162,0), new Color(163,150,0), new Color(182,139,0), new Color(200,127,0), new Color(218,116,0), new Color(236,104,0), new Color(255,93,0), new Color(255,93,0), new Color(236,104,0), new Color(218,116,0), new Color(200,127,0), new Color(182,139,0), new Color(163,150,0), new Color(145,162,0), new Color(127,174,0), new Color(109,185,0), new Color(91,197,0), new Color(72,208,0), new Color(54,220,0), new Color(36,231,0), new Color(18,243,0), new Color(0,255,0), new Color(0,255,0), new Color(18,243,0), new Color(36,231,0), new Color(54,220,0), new Color(72,208,0), new Color(91,197,0), new Color(109,185,0), new Color(127,174,0), new Color(145,162,0), new Color(163,150,0), new Color(182,139,0), new Color(200,127,0), new Color(218,116,0), new Color(236,104,0), new Color(255,93,0) };
 
+    private static byte[] spaceArray = new byte[] {
+        0, 0, 0, 0, 0, 0, 0, 0
+    };
+
     private static byte[] twoArray = new byte[] {
         0, 0, 1, 1, 1, 1, 0, 0,
         0, 1, 0, 0, 0, 0, 1, 0,
@@ -68,6 +74,28 @@ public class LightsSubsystem extends SubsystemBase {
         0, 0, 0, 0, 0, 0, 1, 0,
         0, 1, 1, 1, 1, 1, 1, 0
     };
+
+    private static byte[] sevenArray = new byte[] {
+        0, 1, 1, 1, 1, 1, 1, 0,
+        0, 0, 0, 0, 0, 0, 1, 0,
+        0, 0, 0, 0, 0, 0, 1, 0,
+        0, 0, 0, 0, 0, 0, 1, 0,
+        0, 0, 0, 0, 0, 0, 1, 0,
+        0, 0, 0, 0, 0, 0, 1, 0,
+        0, 0, 0, 0, 0, 0, 1, 0,
+    };
+
+    private static byte[] fourArray = new byte[] {
+        0, 1, 0, 0, 0, 0, 1, 0,
+        0, 1, 0, 0, 0, 0, 1, 0,
+        0, 1, 0, 0, 0, 0, 1, 0,
+        0, 1, 1, 1, 1, 1, 1, 0,
+        0, 0, 0, 0, 0, 0, 1, 0,
+        0, 0, 0, 0, 0, 0, 1, 0,
+        0, 0, 0, 0, 0, 0, 1, 0,
+    };
+
+    private static byte[][] numbersArray = new byte[][] { null, null, twoArray, threeArray, fourArray, null, null, sevenArray, null, null }; 
 
     private CANdle candle;
     private State state;
@@ -207,6 +235,39 @@ public class LightsSubsystem extends SubsystemBase {
         //     gradient.add(s.pop());
         // }
         return gradient;
+    }
+
+    public void setNumberOnPanel(int number) {
+        byte[] displayArray = setNumber(number);
+        int i = 0;
+        for (byte x : displayArray) {
+            candle.setLEDs(
+                x, x, x, 0,
+                LED_STRIP_OFFSET+LED_STRIP_COUNT+(i*8), 8);
+            i++;
+        }
+    }
+
+    private byte[] setNumber(int number) {
+        int numDigits;
+        if (number == 0) {
+            numDigits = 1;
+        } else {
+            numDigits = (int) Math.log10(number) + 1;
+        }
+        byte[] displayArray = new byte[numDigits*56 + numDigits*8]; // each digit is 8x7 (56 total entries) + 8 for a space in between
+        int n = number;
+        int i = 0;
+        while (n > 0) {
+            int digit = n % 10;
+            n = n / 10;
+            byte[] digitArray = numbersArray[digit];
+            for (byte x : digitArray) {
+                displayArray[i] = x;
+                i++;
+            };
+        }
+        return displayArray;
     }
 
     @Override
