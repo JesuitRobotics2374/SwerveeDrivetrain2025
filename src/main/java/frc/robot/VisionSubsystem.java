@@ -62,7 +62,7 @@ public class VisionSubsystem {
         // photonPoseEstimator.setMultiTagFallbackStrategy(PoseStrategy.LOWEST_AMBIGUITY);
         // visionSim = new VisionSystemSim("main");
 
-        // PoseEstimator wEstimator = new Pos
+        // PoseEstimator wEstimator = new Pose
     }
 
     public void setLabel(Pose2d pose2d, String label) {
@@ -107,12 +107,15 @@ public class VisionSubsystem {
             //Pose2d robotPose = drivetrain.getRobotPose();
             // Pose2d targetPose = robotPose.transformBy(transform2d);
 
-            Pose2d targetPose = new Pose2d(translation2d, rotation2d);
+            Pose2d targetPose = new Pose2d(translation2d, rotation2d-180); //TEST THIS
             // Pose2d targetPose = new Pose2d();
+
+            Pose2d latestTargetPose = targetPose;
 
             return targetPose;
         } else {
             return new Pose2d(0,0,new Rotation2d(0,0));
+            //try return null again
         }
 
         // Optional<EstimatedRobotPose> visionEst = Optional.empty();
