@@ -159,6 +159,7 @@ public class Core {
 
         //driveController.a().onTrue(climbingSubsystem.runOnce(() -> climbingSubsystem.zeroSystem()));
         driveController.a().onTrue(lightsSubsystem.runOnce(() -> lightsSubsystem.setNumberOnPanel(2374)));
+        driveController.b().onTrue(lightsSubsystem.runOnce(() -> lightsSubsystem.setAllLEDToColor(255, 0, 0)));
         //driveController.leftTrigger().onTrue(climbingSubsystem.runOnce(() -> climbingSubsystem.servoPosition(0.0)));
 
         // driveController.b().onTrue(lightsSubsystem.runOnce(() -> lightsSubsystem.tickSkipDecrease()));

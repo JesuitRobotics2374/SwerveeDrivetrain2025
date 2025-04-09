@@ -109,7 +109,7 @@ public class LightsSubsystem extends SubsystemBase {
         tick = 0;
 
         System.out.println("Initializing CANdle");
-        candle = new CANdle(27, "FastFD");
+        candle = new CANdle(40, "FastFD");
 
         CANdleConfiguration config = new CANdleConfiguration();
         config.stripType = LEDStripType.RGB;
